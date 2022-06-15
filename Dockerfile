@@ -5,7 +5,8 @@ RUN set -ex \
     && apk add --no-cache apache2 apache2-ctl php8 php8-apache2 php8-dom php8-exif php8-fileinfo php8-mbstring php8-openssl php8-pdo php8-pdo_sqlite php8-pecl-imagick php8-xml php8-zip
 
 RUN set -ex \
-    && sed -i 's/#LoadModule rewrite_module modules\/mod_rewrite.so/LoadModule rewrite_module modules\/mod_rewrite.so/' /etc/apache2/httpd.conf \
+    && sed -Ei 's/#(LoadModule rewrite_module modules\/mod_rewrite.so)/\1/' /etc/apache2/httpd.conf \
+    && sed -Ei 's/(ErrorLog|CustomLog) [^.]+\.log/\1 \/dev\/null/' /etc/apache2/httpd.conf \
     && sed -Ei 's/AllowOverride [nN]one/AllowOverride All/' /etc/apache2/httpd.conf \
     && printf 'MaxSpareServers 2\nMinSpareServers 1\n' >> /etc/apache2/httpd.conf
 
