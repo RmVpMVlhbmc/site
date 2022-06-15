@@ -2,7 +2,7 @@ FROM alpine:latest
 
 RUN set -ex \
     && apk add --no-cache shadow \
-    && apk add --no-cache apache2 apache2-ctl php8 php8-apache2 php8-dom php8-exif php8-fileinfo php8-mbstring php8-openssl php8-pdo php8-pdo_sqlite php8-pecl-imagick php8-xml php8-zip
+    && apk add --no-cache apache2 apache2-ctl php81 php81-apache2 php81-dom php81-exif php81-fileinfo php81-mbstring php81-openssl php81-pdo php81-pdo_sqlite php81-pecl-imagick php81-xml php81-zip
 
 RUN set -ex \
     && sed -Ei 's/#(LoadModule rewrite_module modules\/mod_rewrite.so)/\1/' /etc/apache2/httpd.conf \
