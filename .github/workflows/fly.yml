@@ -12,7 +12,6 @@ jobs:
       - name: Checkout source code
         uses: actions/checkout@v3
       - name: Setup Flyctl
-        if: ${{ github.event_name == 'push' || github.event_name == 'workflow_dispatch' }}
         uses: superfly/flyctl-actions/setup-flyctl@master
       - name: Setup site source code
         shell: pwsh
