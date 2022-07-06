@@ -52,8 +52,8 @@ Set-Location -Path 'themes'
 
 foreach ($t in $wordpressExtensions.themes.Split(' ')) {
     $theme = Invoke-RestMethod -ErrorAction 'SilentlyContinue' -Uri "https://api.wordpress.org/themes/info/1.1/?action=theme_information&request[slug]=$($t)"
-    Invoke-WebRequest -ErrorAction 'SilentlyContinue' -OutFile "/tmp/theme-$($j).zip" -Uri $theme.download_link
-    Expand-Archive -ErrorAction 'SilentlyContinue' -DestinationPath '.' -Path "/tmp/theme-$($j).zip"
+    Invoke-WebRequest -ErrorAction 'SilentlyContinue' -OutFile "/tmp/theme-$($t).zip" -Uri $theme.download_link
+    Expand-Archive -ErrorAction 'SilentlyContinue' -DestinationPath '.' -Path "/tmp/theme-$($t).zip"
 }
 
 Set-Location -Path '..'
@@ -61,8 +61,8 @@ Set-Location -Path '..'
 Set-Location -Path 'plugins'
 
 foreach ($p in $wordpressExtensions.plugins.Split(' ')) {
-    $extension = Invoke-RestMethod -ErrorAction 'SilentlyContinue' -Uri "https://api.wordpress.org/plugins/info/1.0/$($p).json"
-    Invoke-WebRequest -ErrorAction 'SilentlyContinue' -OutFile "/tmp/plugin-$($p).zip" -Uri $($extension.versions.PSObject.Properties | Select-Object -Last 1 -Skip 1).Value
+    $plugin = Invoke-RestMethod -ErrorAction 'SilentlyContinue' -Uri "https://api.wordpress.org/plugins/info/1.0/$($p).json"
+    Invoke-WebRequest -ErrorAction 'SilentlyContinue' -OutFile "/tmp/plugin-$($p).zip" -Uri $($plugin.versions.PSObject.Properties | Select-Object -Last 1 -Skip 1).Value
     Expand-Archive -ErrorAction 'SilentlyContinue' -DestinationPath '.' -Path "/tmp/plugin-$($p).zip"
 }
 
